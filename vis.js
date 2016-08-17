@@ -1,9 +1,16 @@
-theData = [1, [2, 2], [3, 3, 3]]
+d3.csv("tensor.csv", useData);
 
-var paragraphs = d3.select("body").selectAll("p")
-   .data(theData)
-   .enter()
-
-paragraphs.append("center")
-   .append("p")
-   .text(function (d) {return d;});
+function useData(data) {
+   var paragraphs = d3.select("body").selectAll("p")
+      .data(data)
+      .enter()
+      .append("center")
+      .append("p")
+      .text(function(d) {
+         s = "";
+         for (col in d){
+            s = s + d[col] + " / ";
+         }
+      return s;
+   });
+}
