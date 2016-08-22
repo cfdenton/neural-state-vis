@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script src="scripts/jquery-3.1.0.min.js"></script>
+<script src="scripts/d3.min.js"></script>
+<script src="scripts/vis.js"></script>
+</head>
+
+<body>
+<div id="header">
+<center>
+<h1> 
+<link rel="stylesheet" type="text/css" href="vis.css">
+Neural State Visualization 
+</h1>
+</center>
+</div>
+
+<div id="file-input">
+<center>
+<form id="file-select">
+<input type="file" id="files">
+
+<script>
+   function handleFileSelect(event) {
+      console.log("handling");
+      $('#tensor-vis').remove();
+      var files = event.target.files;
+      generateVis(files[0].name);        
+   }
+
+   document.getElementById('file-select').reset();
+   document.getElementById('files').addEventListener('change', handleFileSelect);
+</script>
+</form>
+</center>
+</div>
+
+
+</body>
+
+</html>
