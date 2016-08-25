@@ -1,7 +1,8 @@
 var maxSize = 450;
 var divideSize = 350;
 var fieldWidth, fieldHeight, numStates, posCounter;
-var numVisWidth = 5;
+var maxNumVisWidth = 5;
+var numVisWidth;
 var states, visStates;
 var tensorMaxNorm;
 
@@ -18,7 +19,7 @@ function useData(data) {
    console.log("numStates: " + numStates);
 
    // initialize viewing window
-   numVisWidth = Math.min(numVisWidth, numStates);
+   numVisWidth = Math.min(maxNumVisWidth, numStates);
    visStates = Array(numVisWidth);
    for (var i = 0; i < numVisWidth; i++) {
       visStates[i] = states[i];
@@ -98,11 +99,6 @@ function useData(data) {
 }
 
 function shiftVis(direction) {
-   console.log("arg " + direction + ", posCounter " + posCounter);
-   // update posCounter
-   if (direction === "left") {posCounter += 1;}
-   else if (direction === "right") {posCounter -= 1;}
-
    // change visualization if necessary
    if (direction === "left" && 
       (posCounter > Math.floor(numVisWidth/2) && posCounter < numStates - Math.floor(numVisWidth/2)) ||
@@ -155,13 +151,15 @@ function main() {
    $(document).keydown( function (event) {
       if (event.which === 37) {
          if (posCounter < numStates - 1) {
-            $("#tensor-vis").animate({left: "+=-" + (fieldWidth + divideSize) + "px"}, 250, "linear", 
+            posCounter += 1;
+            $("#tensor-vis").animate({left: "+=-" + (fieldWidth + divideSize) + "px"}, 150, //, "linear", 
                function () {shiftVis("left");});
          }
       }
       else if (event.which === 39) {
          if (posCounter > 0) {
-            $("#tensor-vis").animate({left: "+=" + (fieldWidth + divideSize) + "px"}, 250, 
+            posCounter -= 1;
+            $("#tensor-vis").animate({left: "+=" + (fieldWidth + divideSize) + "px"}, 150, 
                function () {shiftVis("right");});
          }
       }
